@@ -44,7 +44,7 @@ class _AuthPageState extends State<AuthPage> {
                       BuildText("Create your Profile",
                           MediaQuery.of(context).size.width, 28, kWhiteFF),
                       BuildText(
-                          "Codehub will set up your Profile using your profile name and photo",
+                          "Green Charge Hub will set up your Profile using your profile name and photo",
                           MediaQuery.of(context).size.width,
                           16,
                           kWhiteFF),
@@ -67,7 +67,7 @@ class _AuthPageState extends State<AuthPage> {
                               0.95, // Adjust the percentage as needed
                           decoration: const BoxDecoration(
                             shape: BoxShape.rectangle,
-                            color: Colors.blue,
+                            color: Colors.green,
                             boxShadow: [
                               BoxShadow(
                                 color: kBlackRich12,
@@ -155,7 +155,6 @@ class _AuthPageState extends State<AuthPage> {
             'user_photo_url',
             googleSignInAccount.photoUrl ??
                 "https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg");
-        preferences.setBool('islogged', true);
         await auth.signInWithCredential(credential);
         setState(() {
           isLoading = false;

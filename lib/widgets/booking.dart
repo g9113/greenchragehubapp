@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:greenchargehub/auth/model.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../auth/controller.dart';
 
@@ -89,11 +90,6 @@ class _BookingScreenState extends State<BookingScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildInputField('Name', 'name'),
-              _buildInputField('Phone', 'phone'),
-              _buildInputField('Address', 'address'),
-              _buildInputField('Station Name', 'stationName'),
-              _buildInputField('Price', 'price'),
               _buildInputField('Time', 'time'),
               _buildInputField('Date', 'date'),
               SizedBox(height: 20),
@@ -140,14 +136,14 @@ class _BookingScreenState extends State<BookingScreen> {
     );
   }
 
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: selectedDate ?? DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2100),
-    );
-    if (pickedDate != null && pickedDate != selectedDate) {
+  Future<void> _selectDate(BuildContext context) async {final DateTime? pickedDate = await showDatePicker(
+    context: context,
+    initialDate: selectedDate ?? DateTime.now(),
+    firstDate: DateTime.now(),
+    lastDate: DateTime.now().add(Duration(days: 1)),
+  );
+
+  if (pickedDate != null && pickedDate != selectedDate) {
       setState(() {
         selectedDate = pickedDate;
         textEditingControllers['date']?.text = pickedDate.toString(); // Update the text field with selected date
@@ -176,9 +172,14 @@ class _BookingScreenState extends State<BookingScreen> {
 
 
   void _saveBookingData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? emailid = prefs.getString('user_email');
+    String? username = prefs.getString('user_name');
+    String? photo = prefs.getString('user_photo_url');
+    String? phonenumber = prefs.getString('user_number');
     // Retrieve values from bookingData map
-    String name = bookingData['name'];
-    String phone = bookingData['phone'];
+    String name = username.toString();
+    String phone = phonenumber.toString() ;
     String address = bookingData['address'];
     String stationName = bookingData['stationName'];
     String price = bookingData['price'];

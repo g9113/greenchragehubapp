@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:greenchargehub/auth/OtpEnter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -44,8 +45,8 @@ class _RegisterState extends State<Register> {
                   color: Colors.deepPurple.shade50,
                   shape: BoxShape.circle,
                 ),
-                child: Image.asset(
-                  'assets/images/illustration-2.png',
+                child: Image.network(
+                  'https://t3.ftcdn.net/jpg/05/56/55/06/360_F_556550658_HdTG42xb5HCJENnAJ9FtanFpITpRvK67.jpg',
                 ),
               ),
               SizedBox(
@@ -126,6 +127,11 @@ class _RegisterState extends State<Register> {
                           setState(() {
                             isLoading = true;
                           });
+                          final SharedPreferences preferences =
+                          await SharedPreferences.getInstance();
+                          preferences.setString(
+                              'user_number', phonenumber.text ?? "");
+                          preferences.setBool('islogged', true);
                           await FirebaseAuth.instance.verifyPhoneNumber(
                             phoneNumber: '+91${phonenumber.text}',
                             verificationCompleted: (PhoneAuthCredential credential) {},
@@ -143,7 +149,7 @@ class _RegisterState extends State<Register> {
                         },
                         style: ButtonStyle(
                           foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.purple),
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(24.0),

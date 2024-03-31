@@ -29,7 +29,7 @@ class _MapViewState extends State<MapView>
   @override
   void initState() {
     super.initState();
-    currentLocation = LatLng(19.222645393492893, 73.07921795185774);
+    currentLocation = LatLng(19.230353621625376, 73.07875114572468);
     mapController = MapController();
     _getCurrentLocation();
   }

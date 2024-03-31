@@ -79,31 +79,9 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
           ],
         ),
         actions: [
-          Container(
-            padding: const EdgeInsets.all(5),
-            decoration: BoxDecoration(
-                color: white,
-                shape: BoxShape.circle,
-                border: Border.all(color: white)),
-            child: Icon(
-              Icons.favorite_outline_rounded,
-              color: black,
-              size: 8.f,
-            ),
-          ),
+
           SizedBox(width: 2.5.w),
-          Container(
-            padding: const EdgeInsets.all(5),
-            decoration: BoxDecoration(
-                color: white,
-                shape: BoxShape.circle,
-                border: Border.all(color: white)),
-            child: Icon(
-              Icons.more_horiz_rounded,
-              color: black,
-              size: 8.f,
-            ),
-          ),
+
           SizedBox(width: 5.w)
         ],
       ),

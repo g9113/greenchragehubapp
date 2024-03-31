@@ -197,7 +197,7 @@ class _DirectionPageState extends State<DirectionPage>
                 height: 28.sp,
                 child: CustomMarker(
                   widget1: ClipOval(
-                    child: Image.asset(
+                    child: Image.network(
                       widget.gasStation.image,
                       width: 23.sp,
                       height: 23.sp,

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greenchargehub/home_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Otp extends StatefulWidget {
   final String verificationId;
@@ -47,8 +48,8 @@ class _OtpState extends State<Otp> {
                   color: Colors.deepPurple.shade50,
                   shape: BoxShape.circle,
                 ),
-                child: Image.asset(
-                  'assets/images/illustration-3.png',
+                child: Image.network(
+                  'https://www.cellcom.eu/phpthumb/cache/uploads/sms_toepassingen/Wachtwoord-via-sms-1/w400h2400zc0q100/Wachtwoord-via-sms-1.png',
                 ),
               ),
               SizedBox(
@@ -107,6 +108,13 @@ class _OtpState extends State<Otp> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: isLoading ? null : () async {
+                          SharedPreferences prefs = await SharedPreferences.getInstance();
+                          String? emailid = prefs.getString('user_email');
+                          String? username = prefs.getString('user_name');
+                          String? photo = prefs.getString('user_photo_url');
+                          String? phone = prefs.getString('user_number');
+
+                          prefs.setBool('islogged',true );
                           setState(() {
                             isLoading = true; // Set isLoading to true when button is pressed
                           });
@@ -122,7 +130,7 @@ class _OtpState extends State<Otp> {
                           foregroundColor:
                           MaterialStateProperty.all<Color>(Colors.white),
                           backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.purple),
+                          MaterialStateProperty.all<Color>(Colors.green),
                           shape:
                           MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(

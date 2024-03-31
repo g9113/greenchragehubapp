@@ -29,7 +29,7 @@ class _NearLocationPageState extends State<NearLocationPage>
   @override
   void initState() {
     super.initState();
-    currentLocation = LatLng(19.222645393492893, 73.07921795185774);
+    currentLocation = LatLng(19.229965178808573, 73.07905132669585);
     mapController = MapController();
     _getCurrentLocation();
   }

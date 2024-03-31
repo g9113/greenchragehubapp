@@ -2,23 +2,36 @@ import 'package:get/get.dart';
 import 'package:greenchargehub/auth/mobile.dart';
 import 'package:greenchargehub/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:greenchargehub/welcome.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer_pro/sizer.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'auth/controller.dart';
 import 'firebase_options.dart';
 
+Widget defaulthome = WelcomeScreen();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  bool? logged = prefs.getBool("islogged");
+  if(logged==true){
+    defaulthome = HomePage();
+  }
+
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => OnBoardNotifier()),
-
-  ], child: const MyApp()));}
+  ], child: const MyApp()));
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -34,7 +47,8 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         debugShowCheckedModeBanner: false,
-        home: const HomePage(), // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+        home:
+            defaulthome, // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       ),
     );
   }
